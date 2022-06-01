@@ -64,6 +64,7 @@ package com.github.msarhan.ummalqura.calendar;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 class HijrahChronology implements Serializable {
 
@@ -629,7 +630,7 @@ class HijrahChronology implements Serializable {
     static final long DAYS_0000_TO_1970 = (DAYS_PER_CYCLE * 5L) - (30L * 365L + 7L);
 
     public static Date fromIsoEpochDay(long epochDay) {
-        long zeroDay = epochDay + DAYS_0000_TO_1970 + 10;
+        long zeroDay = epochDay + DAYS_0000_TO_1970;
         // find the march-based year
         zeroDay -= 60;  // adjust to 0000-03-01 so leap day is at end of four year cycle
         long adjust = 0;
@@ -684,8 +685,9 @@ class HijrahChronology implements Serializable {
     }
 
     static int[] toHijri(Date date) {
+        final Date dateWithOffset = new Date(date.getTime() + TimeUnit.DAYS.toMillis(1));
         final Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(date);
+        calendar.setTime(dateWithOffset);
         return INSTANCE.getHijrahDateInfo((int) INSTANCE.toIsoEpochDay(
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH) + 1,
