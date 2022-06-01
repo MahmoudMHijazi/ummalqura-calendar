@@ -683,6 +683,7 @@ class HijrahChronology implements Serializable {
     public boolean isIsoLeapYear(long prolepticYear) {
         return ((prolepticYear & 3) == 0) && ((prolepticYear % 100) != 0 || (prolepticYear % 400) == 0);
     }
+    
 
     static int[] toHijri(Date date) {
         final Date dateWithOffset = new Date(date.getTime() + TimeUnit.DAYS.toMillis(1));
