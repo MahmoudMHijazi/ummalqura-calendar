@@ -629,7 +629,7 @@ class HijrahChronology implements Serializable {
     static final long DAYS_0000_TO_1970 = (DAYS_PER_CYCLE * 5L) - (30L * 365L + 7L);
 
     public static Date fromIsoEpochDay(long epochDay) {
-        long zeroDay = epochDay + DAYS_0000_TO_1970;
+        long zeroDay = epochDay + DAYS_0000_TO_1970 + 1;
         // find the march-based year
         zeroDay -= 60;  // adjust to 0000-03-01 so leap day is at end of four year cycle
         long adjust = 0;
